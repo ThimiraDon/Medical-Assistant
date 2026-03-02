@@ -1,0 +1,14 @@
+langchain
+python-dotenv
+langchain-groq
+ipykernel
+jinja2
+scikit-image
+matplotlib
+diffusers
+transformers
+accelerate
+numpy==1.26.4
+docarray==0.40.0
+langchain_huggingface
+sentence-transformers
