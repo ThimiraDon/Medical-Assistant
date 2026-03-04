@@ -2,12 +2,15 @@
 mkdir -p src
 mkdir -p src/ingestion
 mkdir -p research
+mkdir -p src/embeddings
 
 #creating files
 touch src/__init__.py
 touch src/ingestion/__init__.py
 touch src/ingestion/loader.py
 touch src/ingestion/chunker.py
+touch src/embeddings/__init__.py
+touch src/embeddings/pinecone_loader.py
 touch src/helper.py
 touch src/prompt.py
 touch .env
