@@ -3,54 +3,65 @@ from pathlib import Path
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 from transformers import AutoTokenizer
+from src.logger import logging
+from src.config import MODEL_NAME,CHUNK_SIZE,OVERLAP_SIZE
 
-from src.ingestion import PROCESSED_DATA_PATH, CHUNKED_DATA_PATH
+from src.config import PROCESSED_DATA_PATH, CHUNKED_DATA_PATH
 
-tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
-def load_cleaned_docs(path):
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    #converting json to langchain documents. because the chunking function takes 
-    #       in langchain documents as input
-    documents = [
-        Document(page_content=item["text"], metadata=item["metadata"])
-        for item in data
-    ]
+class DocumentChunker:
+    def __init__(self, input_path=PROCESSED_DATA_PATH, output_path=CHUNKED_DATA_PATH):
+        self.input_path = Path(input_path)
+        self.output_path = Path(output_path)
 
-    return documents
+    def load_cleaned_docs(self):
+        try:
+            logging.info(f"Loading cleaned documents from {self.input_path}")
+            with open(self.input_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
 
-def chunk_documents(documents, chunk_size=500, chunk_overlap=100):
-    splitter = RecursiveCharacterTextSplitter.from_huggingface_tokenizer(
-        #Ensures chunk fits embedding model input limit
-        tokenizer=tokenizer, #make sure tokenizer follow its way to split text,not just split by character count
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap #kkep the semetic meaning of the text by overlapping chunks
-    )
-    return splitter.split_documents(documents)
+            documents = [Document(page_content=item["text"], metadata=item["metadata"]) for item in data]
+            logging.info(f"Loaded {len(documents)} documents")
+            return documents
+        except Exception as e:
+            logging.exception(f"Failed to load cleaned documents: {e}")
+            return []
 
-def save_chunks(chunks, output_path):
-    output_path = Path(output_path)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    def chunk_documents(self, documents, chunk_size=CHUNK_SIZE, chunk_overlap=OVERLAP_SIZE):
+        try:
+            
+            splitter = RecursiveCharacterTextSplitter(
+                    chunk_size=chunk_size,
+                    chunk_overlap=chunk_overlap
+            )
 
-    serializable = [
-        {
-            "text": chunk.page_content,
-            "metadata": chunk.metadata
-        }
-        for chunk in chunks
-    ]
+            chunks = splitter.split_documents(documents)
+            logging.info(f"Created {len(chunks)} chunks.")
+            return chunks
+        except Exception as e:
+            logging.exception(f"Failed to chunk documents: {e}")
+            return []
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(serializable, f, ensure_ascii=False, indent=2)
-    
-def run_chunking():
-    documents = load_cleaned_docs(PROCESSED_DATA_PATH)
-    chunks = chunk_documents(documents)
+    def save_chunks(self, chunks):
+        try:
+            self.output_path.parent.mkdir(parents=True, exist_ok=True)
+            serializable = [{"text": chunk.page_content, "metadata": chunk.metadata} for chunk in chunks]
 
-    save_chunks(
-        chunks,
-        CHUNKED_DATA_PATH
-    )
+            with open(self.output_path, "w", encoding="utf-8") as f:
+                json.dump(serializable, f, ensure_ascii=False, indent=2)
 
-    print(f"Total chunks created: {len(chunks)}")
+            logging.info(f"Saved {len(chunks)} chunks to {self.output_path}")
+        except Exception as e:
+            logging.exception(f"Failed to save chunks: {e}")
+
+    def run_chunking(self):
+        docs= self.load_cleaned_docs()
+        if not docs:
+            logging.warning("No documents to chunk.")
+            return  
+        chunks = self.chunk_documents(docs)
+        if not chunks:
+            logging.warning("No chunks created.")
+            return                  
+        self.save_chunks(chunks)    
