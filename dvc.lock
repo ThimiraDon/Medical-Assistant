@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  step_01_clean_data:
+    cmd: python pipelines/step_01_clean_pipeline.py
+    deps:
+    - path: Data/raw
+      hash: md5
+      md5: 7a436b67115be5389810464bc81c0a13.dir
+      size: 16127037
+      nfiles: 1
+    - path: pipelines/step_01_clean_pipeline.py
+      hash: md5
+      md5: 0b2d5651928df69d06fa7ffc6de8945a
+      size: 473
+    - path: src/ingestion/loader.py
+      hash: md5
+      md5: 7b97bf27b9fcf772e4c21e13b2e4cb81
+      size: 3430
+    outs:
+    - path: Data/processed/cleaned_docs.json
+      hash: md5
+      md5: d00edd03dad2e2ad86a627a725770ce0
+      size: 2847827
+  step_02_chunk_data:
+    cmd: python pipelines/step_02_chunk_pipeline.py
+    deps:
+    - path: Data/processed/cleaned_docs.json
+      hash: md5
+      md5: d00edd03dad2e2ad86a627a725770ce0
+      size: 2847827
+    - path: pipelines/step_02_chunk_pipeline.py
+      hash: md5
+      md5: 27f8f4e8985b738cbaf30510c5906310
+      size: 465
+    - path: src/ingestion/chunker.py
+      hash: md5
+      md5: 070df5aa6c2f36546996cece7fb7d53e
+      size: 2643
+    outs:
+    - path: Data/processed/chunks.json
+      hash: md5
+      md5: 8cd1e7d8dc52274733bf71a12856b9e9
+      size: 5414904
+  step_03_embeddings:
+    cmd: python pipelines/step_03_embedding_pipeline.py
+    deps:
+    - path: Data/processed/chunks.json
+      hash: md5
+      md5: 8cd1e7d8dc52274733bf71a12856b9e9
+      size: 5414904
+    - path: pipelines/step_03_embedding_pipeline.py
+      hash: md5
+      md5: 9ec0918796ced79cb1f695683a263660
+      size: 520
+    - path: src/embeddings/pinecone_loader.py
+      hash: md5
+      md5: 768e73f9adc80c8b68b300f10cddd0e2
+      size: 4216

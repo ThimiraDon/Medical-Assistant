@@ -1,0 +1,23 @@
+stages:
+  step_01_clean_data:
+    cmd: python pipelines/step_01_clean_pipeline.py
+    deps:
+    - Data/raw
+    - pipelines/step_01_clean_pipeline.py
+    - src/ingestion/loader.py
+    outs:
+    - Data/processed/cleaned_docs.json
+  step_02_chunk_data:
+    cmd: python pipelines/step_02_chunk_pipeline.py
+    deps:
+    - Data/processed/cleaned_docs.json
+    - pipelines/step_02_chunk_pipeline.py
+    - src/ingestion/chunker.py
+    outs:
+    - Data/processed/chunks.json
+  step_03_embeddings:
+    cmd: python pipelines/step_03_embedding_pipeline.py
+    deps:
+    - Data/processed/chunks.json
+    - pipelines/step_03_embedding_pipeline.py
+    - src/embeddings/pinecone_loader.py

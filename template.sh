@@ -4,6 +4,7 @@ mkdir -p src/ingestion
 mkdir -p research
 mkdir -p src/embeddings
 mkdir -p src/config
+mkdir -p pipelines
 
 #creating files
 touch src/__init__.py
@@ -23,6 +24,11 @@ touch app.py
 touch main.py
 touch requirements.txt
 touch research/test.ipynb
+touch pipelines/__init__.py
+touch pipelines/step_01_clean_pipeline.py
+touch pipelines/step_02_chunk_pipeline.py
+touch pipelines/step_03_embedding_pipeline.py
+
 
 
 echo "All the Files Created Successfully!"

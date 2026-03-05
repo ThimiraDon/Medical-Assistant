@@ -7,4 +7,5 @@ langchain-pinecone==0.2.8
 langchain-groq
 ipykernel
 langchain-community==0.3.26
+dvc
 -e .

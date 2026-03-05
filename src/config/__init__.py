@@ -15,7 +15,7 @@ CHUNKED_DATA_PATH = Path(os.path.join(cleaned_path, CHUNKED_DATA_FILENAME))
 
 #Embedding model name
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-CHUNK_SIZE=400
+CHUNK_SIZE=500
 OVERLAP_SIZE=50
 
 #Pinecone index name
