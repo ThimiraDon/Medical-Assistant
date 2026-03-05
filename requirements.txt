@@ -8,4 +8,5 @@ langchain-groq
 ipykernel
 langchain-community==0.3.26
 dvc
+certifi
 -e .

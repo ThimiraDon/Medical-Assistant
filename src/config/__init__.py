@@ -20,3 +20,11 @@ OVERLAP_SIZE=50
 
 #Pinecone index name
 INDEX_NAME = "medical-assistant"
+
+#retriever
+TOP_K = 5
+SEARCH_TYPE = "similarity"
+
+#llm
+LLM_MODEL = "llama-3.3-70b-versatile"
+TEMPERATURE = 0.0
