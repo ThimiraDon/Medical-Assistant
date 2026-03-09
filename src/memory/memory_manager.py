@@ -12,7 +12,7 @@ class MemoryManager:
         self.conversation = ConversationMemory()
         self.entities = EntityMemory()
         self.episodic = EpisodicMemory()
-        self.vector = PineconeMemory()
+        self.vector = PineconeMemory(llm=llm)
         self.memory_gate = MemoryGate(llm=llm)
 
     def build_context(self, query):
@@ -57,6 +57,5 @@ class MemoryManager:
         self.episodic.add_event(event)
 
         # vector memory
-        if self.memory_gate.should_store(user_query, response):
-            self.vector.store(user_query,response)
+        self.vector.store(user_query, response)
 

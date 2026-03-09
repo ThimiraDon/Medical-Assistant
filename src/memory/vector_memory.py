@@ -1,11 +1,11 @@
 from langchain_pinecone import PineconeVectorStore
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.memory import VectorStoreRetrieverMemory
-
 from pinecone import Pinecone, ServerlessSpec
 
 from src.config import MODEL_NAME, MEMORY_INDEX
 from src.config.API_config import PINECONE_API_KEY
+from src.memory.memory_gate import MemoryGate
 
 class PineconeMemory:
     """
@@ -13,8 +13,9 @@ class PineconeMemory:
     Stores important conversation interactions.
     """
 
-    def __init__(self, k: int = 5):
-
+    def __init__(self,llm=None, k: int = 5):
+        self.llm = llm
+        self.memory_gate = MemoryGate(llm)
         # Embeddings
         self.embeddings = HuggingFaceEmbeddings(
             model_name=MODEL_NAME
@@ -70,8 +71,9 @@ class PineconeMemory:
         """
         Save interaction to vector memory.
         """
-        self.memory.save_context(
-            {"input": user_query},
-            {"output": response}
-        )
+        if self.memory_gate.should_store(user_query, response):
+            self.memory.save_context(
+                {"input": user_query},
+                {"output": response}
+            )
 

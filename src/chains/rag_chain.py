@@ -37,18 +37,10 @@ class MedicalRAGChain:
         #print(Retrival_context)
 
         #long-term memory
+        long_term_memory = ""
         if hasattr(self.memory,"vector"):
-            #long_term_memory=self.memory.vector.retrieve(user_query)
-            doc = {
-            "content": f"User: {user_query}\nAssistant: {response}",
-            "metadata": {
-                "user_query": user_query,
-                "assistant_response": response,
-                "important": True  # determined by MemoryGate
-            }
-        }
-        self.vector.store(doc)
-            #print(long_term_memory)
+            long_term_memory=self.memory.vector.retrieve(user_query)
+            
         
         final_context=f"""
             Relevant Medical Knowledge:
