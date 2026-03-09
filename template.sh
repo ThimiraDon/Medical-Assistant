@@ -6,6 +6,11 @@ mkdir -p src/embeddings
 mkdir -p src/config
 mkdir -p pipelines
 mkdir -p src/prompts
+mkdir -p src/retriever
+mkdir -p src/memory
+mkdir -p src/llm
+mkdir -p src/query_rewriter
+mkdir -p src/chains
 
 
 #creating files

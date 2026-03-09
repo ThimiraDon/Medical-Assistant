@@ -9,4 +9,5 @@ ipykernel
 langchain-community==0.3.26
 dvc
 certifi
+spacy
 -e .

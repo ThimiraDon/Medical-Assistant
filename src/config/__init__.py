@@ -28,3 +28,6 @@ SEARCH_TYPE = "similarity"
 #llm
 LLM_MODEL = "llama-3.3-70b-versatile"
 TEMPERATURE = 0.0
+
+#Memory
+MEMORY_INDEX="medical-assistant-memory"
