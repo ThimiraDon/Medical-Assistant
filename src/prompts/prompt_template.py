@@ -26,6 +26,7 @@ class MedicalPrompt:
                     Output Rules:
                     - Provide clear, medically accurate explanations.
                     - Use simple, precise language.
+                    - If its not a medical question answer normally. like normal Q&A.
                     - Do NOT mention sources.
                     - Do NOT fabricate information."""
         )

@@ -13,7 +13,7 @@ class PineconeMemory:
     Stores important conversation interactions.
     """
 
-    def __init__(self,llm=None, k: int = 5):
+    def __init__(self,llm=None, k: int = 3):
         self.llm = llm
         self.memory_gate = MemoryGate(llm)
         # Embeddings

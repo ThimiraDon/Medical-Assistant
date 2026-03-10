@@ -9,9 +9,8 @@ from src.llm.llm_loader import LLMLoader
 from src.memory.memory_manager import MemoryManager
 from src.retriever.retriever import MultiQueryRetriever
 from src.query_rewriter.rewrite_query_pipeline import RewriteQueryPipeline
-
 from src.prompts.prompt_template import MedicalPrompt
-
+from src.reranker.reranking import ReRanker
 # Optional: your RAG chain if you still want to use it
 from src.chains.rag_chain import MedicalRAGChain
 
@@ -33,6 +32,9 @@ def main():
     #Initialize retriever
     retriever = MultiQueryRetriever(llm=llm, memory_manager=memory_manager)
 
+    #Initialize ReRanker
+    reranker = ReRanker(top_k=3)
+
     print("Medical Assistant Ready! Type 'exit' to quit.\n")
 
     while True:
@@ -46,7 +48,8 @@ def main():
                 retriever=retriever,
                 prompt=prompt_template,
                 memory=memory_manager,
-                query_pipeline=query_pipeline
+                query_pipeline=query_pipeline,
+                reranker=reranker
             )
 
         response = rag_chain.run(user_query)

@@ -11,6 +11,7 @@ class ConversationMemory:
     def __init__(self, k: int = 5):
         self.memory = ConversationBufferWindowMemory(
             k=k,
+            max_token_limit=2000,
             return_messages=True
         )
 

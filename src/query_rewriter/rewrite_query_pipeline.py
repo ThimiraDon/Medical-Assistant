@@ -4,7 +4,6 @@ from src.query_rewriter.query_decomposer import QueryDecomposer
 
 
 from difflib import SequenceMatcher
-import spacy
 
 try:
     import spacy

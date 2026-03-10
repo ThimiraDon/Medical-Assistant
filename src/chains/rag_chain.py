@@ -1,8 +1,9 @@
 from langchain.schema import Document
 from src.utils.document_formatter import format_documents
+MAX_CHARS_PER_DOC = 1000
 
 class MedicalRAGChain:
-    def __init__(self, llm, retriever, prompt, memory, query_pipeline):
+    def __init__(self, llm, retriever, prompt, memory, query_pipeline,reranker):
         """
         llm: LLM object
         retriever: MultiQueryRetriever instance
@@ -15,6 +16,7 @@ class MedicalRAGChain:
         self.prompt = prompt
         self.memory = memory
         self.query_pipeline = query_pipeline
+        self.reranker=reranker
 
     def run(self, user_query, debug=False):
         #Build memory context
@@ -33,8 +35,14 @@ class MedicalRAGChain:
             all_docs.extend(docs_content)
         
         all_docs = self.retriever.deduplicate_docs(all_docs)
-        Retrival_context="\n".join([i.page_content for i in all_docs])
-        #print(Retrival_context)
+        #print(all_docs)
+        #print("\n\n")
+        if all_docs:
+            # --- Re-rank documents ---
+            ranked_docs = self.reranker.rerank(user_query, all_docs)
+             #print(ranked_docs)
+            Retrival_context="\n".join([i.page_content[:MAX_CHARS_PER_DOC] for i in ranked_docs])
+            #print(Retrival_context)
 
         #long-term memory
         long_term_memory = ""

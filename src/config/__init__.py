@@ -22,7 +22,7 @@ OVERLAP_SIZE=50
 INDEX_NAME = "medical-assistant"
 
 #retriever
-TOP_K = 5
+TOP_K = 10
 SEARCH_TYPE = "similarity"
 
 #llm
@@ -31,3 +31,7 @@ TEMPERATURE = 0.0
 
 #Memory
 MEMORY_INDEX="medical-assistant-memory"
+
+#ReRanking model
+RERANKER="BAAI/bge-reranker-base"
+RERANK_K=5
