@@ -18,4 +18,7 @@ class EpisodicMemory:
     def get_events(self):
 
         return "\n".join(self.events)
+    
+    def clear(self):
+        self.events = []
 

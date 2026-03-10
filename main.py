@@ -25,6 +25,7 @@ def main():
 
     #Initialize memory manager
     memory_manager = MemoryManager(llm=llm)
+    memory_manager.reset_memory()
 
     #Initialize query pipeline (rewriter + multi-query + smart truncate)
     query_pipeline = RewriteQueryPipeline(llm=llm)

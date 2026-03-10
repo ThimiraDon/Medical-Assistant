@@ -59,3 +59,23 @@ class MemoryManager:
         # vector memory
         self.vector.store(user_query, response)
 
+    def reset_memory(self):
+
+        # Reset conversation history
+        if hasattr(self.conversation, "clear"):
+            self.conversation.clear()
+
+        # Reset entity memory
+        if hasattr(self.entities, "clear"):
+            self.entities.clear()
+
+        # Reset episodic memory
+        if hasattr(self.episodic, "clear"):
+            self.episodic.clear()
+
+        # Reset vector memory
+        if hasattr(self.vector, "clear"):
+            self.vector.clear()
+
+        print("All memories reset.")
+

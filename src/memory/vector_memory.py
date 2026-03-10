@@ -57,6 +57,7 @@ class PineconeMemory:
         self.memory = VectorStoreRetrieverMemory(
             retriever=retriever
         )
+        self.index = self.pc.Index(MEMORY_INDEX)
 
     def retrieve(self, query: str) -> str:
         """
@@ -77,3 +78,9 @@ class PineconeMemory:
                 {"output": response}
             )
 
+    def clear(self):
+        try:
+            self.index.delete(delete_all=True)
+            print("Vector memory cleared.")
+        except Exception as e:
+            print("Vector reset failed:", e)

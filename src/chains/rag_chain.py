@@ -41,7 +41,17 @@ class MedicalRAGChain:
         if hasattr(self.memory,"vector"):
             long_term_memory=self.memory.vector.retrieve(user_query)
             
-        
+        # --- Fallback for empty retrieval ---
+        if not all_docs:
+            # Get user's name from EntityMemory
+            user_name = self.memory.entities.get_entities(category="NAME")
+            if user_name:
+                # Take first name if multiple
+                user_name = list(user_name.split(":")[1].strip().split(","))[0]
+                response = f"I’m not familiar with that topic yet, {user_name}. Could you clarify or ask a different question?"
+            else:
+                response = "I'm not sure about that yet, but I can help you find information. Can you tell me more?"
+
         final_context=f"""
             Relevant Medical Knowledge:
             {Retrival_context}
