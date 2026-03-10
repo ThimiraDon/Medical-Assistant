@@ -27,6 +27,7 @@ SEARCH_TYPE = "similarity"
 
 #llm
 LLM_MODEL = "llama-3.3-70b-versatile"
+SMALL_MODEL="llama-3.1-8b-instant"
 TEMPERATURE = 0.0
 
 #Memory

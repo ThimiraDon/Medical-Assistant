@@ -221,3 +221,19 @@ border-radius: 0 0 15px 15px !important;
 	margin-bottom: 15px !important;
 }
 }
+.msg_cotainer {
+    background-color: #f1f0f0;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 80%;
+    white-space: pre-wrap; /* preserves line breaks */
+}
+
+.msg_cotainer ul {
+    padding-left: 20px;
+    margin: 5px 0;
+}
+
+.msg_cotainer li {
+    margin-bottom: 4px;
+}

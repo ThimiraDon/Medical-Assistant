@@ -17,7 +17,7 @@ class MedicalPrompt:
                     1. Carefully read all context before answering.
                     2. Extract relevant medical information from Medical Knowledge only.
                     3. Use Conversation Memory only for continuity, not for medical facts.
-                    4. If the answer is not contained in the context, respond exactly with: "I don't know."
+                    4. If the answer is not contained in the context, respond exactly with: "I don't know, but I can help you find information. Can you tell me more?"
 
                     Structured explanations:
                     - Use numbered/sectioned format only for detailed medical questions.

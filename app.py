@@ -14,24 +14,27 @@ from src.reranker.reranking import ReRanker
 
 from src.chains.rag_chain import MedicalRAGChain
 
+from src.utils.document_formatter import format_response_html
+
 
 app=Flask(__name__)
 
 load_dotenv()
 llm =LLMLoader(groq_api_key=GROQ_API_KEY).get_model()
+small_llm=LLMLoader(groq_api_key=GROQ_API_KEY).get_small_model()
 
 #prompt_template
 prompt = MedicalPrompt()
 
 #initialize memory manager
-memeory_manager = MemoryManager(llm=llm)
+memeory_manager = MemoryManager(llm=small_llm)
 memeory_manager.reset_memory()
 
 #Initialize query pipeline (rewriter + multi-query + smart truncate)
-query_pipeline=RewriteQueryPipeline(llm=llm)
+query_pipeline=RewriteQueryPipeline(llm=small_llm)
 
 #Initialize retrieve
-retriever=MultiQueryRetriever(llm=llm,memory_manager=memeory_manager)
+retriever=MultiQueryRetriever(llm=small_llm,memory_manager=memeory_manager)
 
 #Initialize ReRanker
 reranker = ReRanker(top_k=3)
@@ -59,9 +62,9 @@ def chat():
     print("User:", msg)
 
     response = rag_chain.run(msg)
-
-    print("Bot:", response)
-    return str(response)
+    formatteed_response=format_response_html(response)
+    print("Bot:", formatteed_response)
+    return str(formatteed_response)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port= 8080, debug= True)
