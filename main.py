@@ -1,3 +1,8 @@
+"""
+TESTING ON CONSOLE
+
+"""
+
 import os
 os.environ["SSL_CERT_FILE"] = r"C:\certs\cacert.pem"
 

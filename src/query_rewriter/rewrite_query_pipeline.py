@@ -74,4 +74,4 @@ class RewriteQueryPipeline:
         # Step 5: Deduplicate
         final_queries = self.deduplicate_queries(list(final_queries))
 
-        return final_queries
+        return final_queries[:3]
