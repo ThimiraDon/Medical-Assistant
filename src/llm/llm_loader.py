@@ -8,7 +8,8 @@ class LLMLoader:
         self.model = ChatGroq(
             model=LLM_MODEL, 
             api_key=groq_api_key,
-            temperature=0
+            temperature=0,
+            streaming=True
             )
         self.small_model = ChatGroq(
             model=SMALL_MODEL, 

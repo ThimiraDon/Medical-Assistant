@@ -57,8 +57,10 @@ def main():
                 reranker=reranker
             )
 
-        response = rag_chain.run(user_query)
-        print(response)
+        print("Bot:", end=" ", flush=True)
+        for token in rag_chain.run(user_query):
+            print(token, end="", flush=True)  # prints token by token
+        print("\n")
         
 
 if __name__ == "__main__":

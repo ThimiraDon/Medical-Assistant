@@ -62,8 +62,20 @@ class MedicalRAGChain:
                 input=user_query
             )
         
-        response = self.llm.invoke(formatted_prompt).content
+        #response = self.llm.invoke(formatted_prompt).content
 
-        self.memory.store_interaction(user_query=user_query,response=response)
+        #Stream tokens from LLM and save
+        full_response = ""
+        for token in self.llm.stream(formatted_prompt):
+            # Convert token to string if it's an object
+            if hasattr(token, "content"):      # AIMessageChunk
+                text = token.content
+            else:                              # plain string fallback
+                text = str(token)
 
-        return response
+            full_response += text
+            yield text  # stream to console / frontend
+
+        self.memory.store_interaction(user_query=user_query,response=full_response)
+
+        #return response

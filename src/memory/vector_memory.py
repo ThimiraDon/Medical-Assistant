@@ -83,4 +83,7 @@ class PineconeMemory:
             self.index.delete(delete_all=True)
             print("Vector memory cleared.")
         except Exception as e:
-            print("Vector reset failed:", e)
+            if "Namespace not found" in str(e):
+                print("Vector memory cleared skipped: namespace not found.")
+            else:
+                raise e

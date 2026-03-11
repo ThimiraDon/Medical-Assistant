@@ -1,7 +1,7 @@
 import os
 os.environ["SSL_CERT_FILE"] = r"C:\certs\cacert.pem"
 
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, Response, render_template, jsonify, request
 from dotenv import load_dotenv
 
 from src.config.API_config import GROQ_API_KEY
@@ -55,16 +55,37 @@ def index():
 
 
 
-@app.route("/get", methods=["GET", "POST"])
-def chat():
-    msg = request.form["msg"]
+# @app.route("/get", methods=["GET", "POST"])
+# def chat():
+#     msg = request.form["msg"]
 
-    print("User:", msg)
+#     print("User:", msg)
 
-    response = rag_chain.run(msg)
-    formatteed_response=format_response_html(response)
-    print("Bot:", formatteed_response)
-    return str(formatteed_response)
+#     response = rag_chain.run(msg)
+#     formatteed_response=format_response_html(response)
+#     print("Bot:", formatteed_response)
+#     return str(formatteed_response)
+
+
+# --- Streaming Endpoint ---
+@app.route("/stream", methods=["POST"])
+def chat_stream():
+    user_msg = request.form.get("msg", "").strip()
+    if not user_msg:
+        return "No message provided.", 400
+
+    def generate():
+        full_response = ""
+        for token in rag_chain.run(user_msg):
+            if hasattr(token, "content"):
+                text = token.content
+            else:
+                text = str(token)
+            full_response += text
+            yield text
+        rag_chain.memory.store_interaction(user_query=user_msg, response=full_response)
+
+    return Response(generate(), mimetype="text/plain")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port= 8080, debug= True)
