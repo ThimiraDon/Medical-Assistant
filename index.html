@@ -1,137 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Memory-Aware Medical RAG Assistant</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
 
+/* GLOBAL */
+
 body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background:#fafafa;
 }
 
+
+/* HERO */
+
 .hero{
-    background: linear-gradient(135deg,#0d6efd,#3a8bfd);
-    color:white;
-    padding:120px 20px;
-    text-align:center;
+background:linear-gradient(135deg,#0d6efd,#3a8bfd);
+color:white;
+padding:140px 20px;
+text-align:center;
 }
 
 .hero h1{
-    font-size:3rem;
-    font-weight:700;
+font-size:3.2rem;
+font-weight:700;
 }
 
 .hero p{
-    font-size:1.2rem;
-    margin-top:10px;
+font-size:1.25rem;
+margin-top:15px;
 }
+
+.hero-buttons{
+margin-top:30px;
+}
+
+
+/* SECTION */
 
 .section-title{
-    margin-top:70px;
-    margin-bottom:30px;
-    font-weight:600;
+margin-top:90px;
+margin-bottom:40px;
+font-weight:600;
+text-align:center;
 }
 
-pre{
-    background:#f8f9fa;
-    padding:20px;
-    border-radius:8px;
+
+/* FEATURE CARDS */
+
+.feature-card{
+border:none;
+border-radius:12px;
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
+transition:all 0.3s;
+height:100%;
 }
 
-.btn-github{
-    background:#24292e;
-    color:white;
+.feature-card:hover{
+transform:translateY(-6px);
 }
 
-.btn-github:hover{
-    background:#444;
-    color:white;
-}
 
-.footer{
-    margin-top:80px;
-    padding:30px;
-    background:#f1f1f1;
-    text-align:center;
-}
+/* ARCHITECTURE PIPELINE */
+
 .pipeline{
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    gap:20px;
-    overflow-x:auto;
-    padding:30px 10px;
+display:flex;
+align-items:center;
+gap:20px;
+overflow-x:auto;
+padding:30px 10px;
 }
 
 .step{
-    min-width:130px;
-    background:white;
-    border-radius:12px;
-    padding:15px;
-    text-align:center;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    transition:transform 0.3s;
-    animation:fadeInUp 0.8s ease forwards;
-}
-
-.step img{
-    width:40px;
-    margin-bottom:8px;
+min-width:140px;
+background:white;
+border-radius:12px;
+padding:18px;
+text-align:center;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+animation:fadeInUp 0.8s ease forwards;
+transition:transform .3s;
 }
 
 .step:hover{
-    transform:translateY(-6px);
+transform:translateY(-6px);
+}
+
+.step img{
+width:42px;
+margin-bottom:8px;
 }
 
 .arrow{
-    font-size:28px;
-    color:#0d6efd;
-    animation:moveArrow 1.5s infinite alternate;
+font-size:26px;
+color:#0d6efd;
+animation:arrowMove 1.5s infinite alternate;
 }
 
 .highlight{
-    border:2px solid #0d6efd;
+border:2px solid #0d6efd;
 }
+
+
+/* CODE BLOCK */
+
+pre{
+background:#f8f9fa;
+padding:20px;
+border-radius:8px;
+}
+
+
+/* FOOTER */
+
+.footer{
+margin-top:100px;
+padding:40px;
+background:#f1f1f1;
+text-align:center;
+font-size:.95rem;
+}
+
+
+/* ANIMATIONS */
 
 @keyframes fadeInUp{
 from{
-    opacity:0;
-    transform:translateY(20px);
+opacity:0;
+transform:translateY(20px);
 }
 to{
-    opacity:1;
-    transform:translateY(0);
+opacity:1;
+transform:translateY(0);
 }
 }
 
-@keyframes moveArrow{
+@keyframes arrowMove{
 from{transform:translateX(0);}
-to{transform:translateX(6px);}
+to{transform:translateX(8px);}
 }
 
 </style>
+
 </head>
 
 <body>
 
 
 <!-- HERO -->
+
 <section class="hero">
 
 <div class="container">
 
 <h1>Memory-Aware Medical RAG Assistant</h1>
 
-<p>A context-aware medical AI assistant leveraging RAG, hybrid memory, and LLMs.</p>
+<p>
+A context-aware AI medical assistant combining Retrieval-Augmented Generation,
+hybrid memory architecture and intelligent query rewriting.
+</p>
 
-<div class="mt-4">
+<div class="hero-buttons">
 
 <a href="https://github.com/ThimiraDon/Memory-Aware-Medical-RAG-Assistant"
-class="btn btn-github btn-lg me-2"
+class="btn btn-dark btn-lg me-3"
 target="_blank">
 View Source Code
 </a>
@@ -145,46 +185,87 @@ Live Project Page
 </div>
 
 </div>
+
 </section>
+
 
 
 <div class="container">
 
 
 <!-- FEATURES -->
-<section>
 
-<h2 class="section-title">🚀 Features</h2>
+<h2 class="section-title">🚀 Core Features</h2>
 
-<ul>
+<div class="row g-4">
 
-<li><strong>Advanced Query Optimization</strong>  
-Multi-stage query rewriting including conversation awareness, decomposition, multi-query generation, and deduplication.</li>
+<div class="col-md-6 col-lg-4">
 
-<li><strong>Hybrid Memory Architecture</strong>  
-Conversation, Entity, Episodic and Vector memory working together to maintain long-term context.</li>
+<div class="card feature-card p-3">
+<h5>Advanced Query Optimization</h5>
+<p>
+Conversation-aware query rewriting, decomposition and multi-query generation
+to improve retrieval recall.
+</p>
+</div>
 
-<li><strong>Retrieval-Augmented Generation (RAG)</strong>  
-Combines vector retrieval, re-ranking and LLM generation for accurate medical answers.</li>
+</div>
 
-<li><strong>Cross-Encoder Document Re-Ranking</strong>  
-Improves answer relevance beyond standard vector similarity.</li>
+<div class="col-md-6 col-lg-4">
 
-<li><strong>Streaming Responses</strong>  
-Real-time token streaming for responsive chat interfaces.</li>
+<div class="card feature-card p-3">
+<h5>Hybrid Memory Architecture</h5>
+<p>
+Combines conversation, entity, episodic and vector memory
+to maintain contextual awareness.
+</p>
+</div>
 
-</ul>
+</div>
 
-</section>
+<div class="col-md-6 col-lg-4">
+
+<div class="card feature-card p-3">
+<h5>Retrieval-Augmented Generation</h5>
+<p>
+Integrates vector retrieval, context assembly and LLM
+generation for accurate medical responses.
+</p>
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-4">
+
+<div class="card feature-card p-3">
+<h5>Cross-Encoder Re-Ranking</h5>
+<p>
+Improves retrieval precision by re-ranking documents
+before passing them to the LLM.
+</p>
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-4">
+
+<div class="card feature-card p-3">
+<h5>Streaming LLM Responses</h5>
+<p>
+Tokens stream in real time for responsive conversational
+interfaces.
+</p>
+</div>
+
+</div>
+
+</div>
+
 
 
 <!-- ARCHITECTURE -->
 
-<section>
-
-<h2 class="section-title text-center">🏗 System Architecture</h2>
-
-<div class="container">
+<h2 class="section-title">🏗 System Architecture</h2>
 
 <div class="pipeline">
 
@@ -239,7 +320,7 @@ Real-time token streaming for responsive chat interfaces.</li>
 
 <div class="step">
 <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
-<p>LLM Response</p>
+<p>LLM Generation</p>
 </div>
 
 <div class="arrow">➜</div>
@@ -258,66 +339,31 @@ Real-time token streaming for responsive chat interfaces.</li>
 
 </div>
 
-</div>
-
-</section>
-     
 
 
 <!-- PROJECT STRUCTURE -->
-
-<section>
 
 <h2 class="section-title">🧩 Project Structure</h2>
 
 <pre>
 src
-│
 ├── config
-│   ├── config.py
-│   └── API_config.py
-│
 ├── llm
-│   └── llm_loader.py
-│
 ├── prompts
-│   ├── prompt.py
-│   └── fewshot_example.py
-│
 ├── query_rewriter
-│   ├── conversation_aware_rewriter.py
-│   ├── multi_query_gen_rewriter.py
-│   ├── query_decomposer.py
-│   └── rewrite_query_pipeline.py
-│
 ├── memory
-│   ├── conversation_memory.py
-│   ├── entity_memory.py
-│   ├── episodic_memory.py
-│   ├── vector_memory.py
-│   ├── memory_gate.py
-│   └── memory_manager.py
-│
 ├── retriever
-│   └── retriever.py
-│
 ├── reranker
-│   └── reranker.py
-│
 └── rag
-    └── rag_chain.py
 </pre>
 
-</section>
 
 
 <!-- TECHNOLOGIES -->
 
-<section>
-
 <h2 class="section-title">⚙️ Technologies</h2>
 
-<ul>
+<ul class="text-center list-unstyled">
 
 <li>Python</li>
 <li>LangChain</li>
@@ -329,18 +375,13 @@ src
 
 </ul>
 
-</section>
 
 
 <!-- WORKFLOW -->
 
-<section>
-
 <h2 class="section-title">💡 Example Workflow</h2>
 
-<p><strong>User Question</strong></p>
-
-<code>What are the symptoms of kidney stones?</code>
+<p class="text-center"><strong>User Question:</strong> What are the symptoms of kidney stones?</p>
 
 <ol>
 
@@ -350,18 +391,15 @@ src
 
 <li>Documents are re-ranked using a cross-encoder model</li>
 
-<li>Context is combined with conversation memory</li>
+<li>Conversation context and memory are combined</li>
 
-<li>The LLM generates a structured medical response</li>
+<li>The LLM generates a structured medical answer</li>
 
 </ol>
 
-</section>
 
 
 <!-- FUTURE -->
-
-<section>
 
 <h2 class="section-title">📌 Future Improvements</h2>
 
@@ -375,24 +413,22 @@ src
 
 </ul>
 
-</section>
 
 
 <!-- DISCLAIMER -->
 
-<section>
-
 <h2 class="section-title">📜 Disclaimer</h2>
 
-<p>
-This assistant provides informational medical responses and should not replace professional medical advice.
-Always consult a qualified healthcare professional.
+<p class="text-center">
+
+This system provides informational medical responses and should not replace professional medical advice.
+
+Always consult qualified healthcare professionals.
+
 </p>
 
-</section>
-
-
 </div>
+
 
 
 <!-- FOOTER -->
@@ -400,10 +436,12 @@ Always consult a qualified healthcare professional.
 <div class="footer">
 
 <p>
-Developed by <strong>Thimira</strong> — Exploring advanced RAG systems, memory architectures and AI-powered medical assistants.
+Developed by <strong>Thimira</strong><br>
+Exploring advanced RAG systems, hybrid memory architectures and AI-powered medical assistants.
 </p>
 
 </div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
