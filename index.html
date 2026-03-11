@@ -1,385 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Memory-Aware Medical RAG Assistant</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-
 /* GLOBAL */
-
-body{
-font-family:'Segoe UI',sans-serif;
-background:#fafafa;
-scroll-behavior:smooth;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fafafa;
+    scroll-behavior: smooth;
+    color: #333;
+    line-height: 1.6;
 }
-
+h1, h2, h3, h5 {
+    font-weight: 600;
+}
 
 /* NAVBAR */
-
-.navbar{
-background:#ffffff;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
+.navbar {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-
-.navbar-brand{
-font-weight:600;
+.navbar-brand {
+    font-weight: 600;
 }
-
 
 /* HERO */
-
-.hero{
-background:linear-gradient(135deg,#0d6efd,#3a8bfd);
-color:white;
-padding:140px 20px;
-text-align:center;
+.hero {
+    background: linear-gradient(135deg,#0d6efd,#3a8bfd);
+    color: white;
+    padding: 140px 20px;
+    text-align: center;
 }
-
-.hero h1{
-font-size:3.2rem;
-font-weight:700;
+.hero h1 {
+    font-size: 3rem;
 }
-
-.hero p{
-font-size:1.25rem;
-margin-top:15px;
-max-width:700px;
-margin-left:auto;
-margin-right:auto;
+.hero p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 15px auto 0 auto;
 }
-
-.hero-buttons{
-margin-top:30px;
+.hero-buttons {
+    margin-top: 30px;
 }
-
-
-/* SECTION */
-
-.section-title{
-margin-top:100px;
-margin-bottom:40px;
-font-weight:600;
-text-align:center;
-}
-
 
 /* FEATURE CARDS */
-
-.feature-card{
-border:none;
-border-radius:12px;
-box-shadow:0 4px 14px rgba(0,0,0,0.08);
-transition:all 0.3s;
-height:100%;
+.feature-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    height: 100%;
+    padding: 20px;
 }
-
-.feature-card:hover{
-transform:translateY(-6px);
+.feature-card:hover {
+    transform: translateY(-6px);
 }
-
 
 /* ARCHITECTURE PIPELINE */
-
-.pipeline{
-display:flex;
-align-items:center;
-gap:20px;
-overflow-x:auto;
-padding:30px 10px;
+.pipeline {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 30px 10px;
 }
-
-.step{
-min-width:140px;
-background:white;
-border-radius:12px;
-padding:18px;
-text-align:center;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-transition:0.3s;
+.step {
+    min-width: 140px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
 }
-
-.step:hover{
-transform:translateY(-6px);
+.step:hover {
+    transform: translateY(-6px);
 }
-
-.step img{
-width:40px;
-margin-bottom:8px;
+.step img {
+    width: 42px;
+    margin-bottom: 8px;
 }
-
-.arrow{
-font-size:26px;
-color:#0d6efd;
+.arrow {
+    font-size: 26px;
+    color: #0d6efd;
 }
-
-.highlight{
-border:2px solid #0d6efd;
+.highlight {
+    border: 2px solid #0d6efd;
 }
-
 
 /* TECH ICONS */
-
-.tech-icon img{
-width:60px;
-margin-bottom:10px;
+.tech-icon img {
+    width: 60px;
+    margin-bottom: 10px;
 }
-
 
 /* CODE BLOCK */
-
-.codeblock{
-background:#1e1e1e;
-color:#d4d4d4;
-padding:25px;
-border-radius:10px;
-font-family:monospace;
+.codeblock {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 25px;
+    border-radius: 10px;
+    font-family: Consolas, monospace;
+    white-space: pre;
 }
-
 
 /* WORKFLOW */
-
-.workflow-step{
-margin-bottom:20px;
+.workflow-step {
+    margin-bottom: 20px;
 }
-
 
 /* CTA */
-
-.cta{
-background:#0d6efd;
-color:white;
-padding:80px 20px;
-margin-top:100px;
-text-align:center;
+.cta {
+    background: #0d6efd;
+    color: white;
+    padding: 80px 20px;
+    margin-top: 100px;
+    text-align: center;
 }
-
-.cta h3{
-font-weight:600;
-margin-bottom:20px;
+.cta h3 {
+    font-weight: 600;
+    margin-bottom: 20px;
 }
-
+.cta a.btn {
+    color: #0d6efd;
+}
 
 /* FOOTER */
-
-.footer{
-margin-top:80px;
-padding:40px;
-background:#f1f1f1;
-text-align:center;
-font-size:.9rem;
+.footer {
+    margin-top: 80px;
+    padding: 40px;
+    background: #f1f1f1;
+    text-align: center;
+    font-size: 0.95rem;
 }
-
 </style>
 
 </head>
 
 <body>
 
-
-
 <!-- NAVBAR -->
-
 <nav class="navbar navbar-expand-lg sticky-top">
-
-<div class="container">
-
-<a class="navbar-brand" href="#">Medical RAG Assistant</a>
-
-</div>
-
+    <div class="container">
+        <a class="navbar-brand" href="#">Medical RAG Assistant</a>
+    </div>
 </nav>
 
-
-
 <!-- HERO -->
-
 <section class="hero">
-
-<div class="container">
-
-<h1>Memory-Aware Medical RAG Assistant</h1>
-
-<p>
-A context-aware AI medical assistant combining Retrieval-Augmented Generation,
-hybrid memory architectures and intelligent query rewriting to provide
-accurate and contextual medical information.
-</p>
-
-<div class="hero-buttons">
-
-<a href="https://github.com/ThimiraDon/Memory-Aware-Medical-RAG-Assistant"
-class="btn btn-dark btn-lg"
-target="_blank">
-View Source Code on GitHub
-</a>
-
-</div>
-
-</div>
-
+    <div class="container">
+        <h1>Memory-Aware Medical RAG Assistant</h1>
+        <p>A context-aware AI medical assistant combining Retrieval-Augmented Generation, hybrid memory architectures, and intelligent query rewriting to provide accurate and contextual medical information.</p>
+        <div class="hero-buttons">
+            <a href="https://github.com/ThimiraDon/Memory-Aware-Medical-RAG-Assistant" class="btn btn-dark btn-lg" target="_blank">
+                View Source Code on GitHub
+            </a>
+        </div>
+    </div>
 </section>
 
-
-
 <div class="container">
 
-
-
 <!-- FEATURES -->
-
 <h2 class="section-title">🚀 Core Features</h2>
-
-<div class="row g-4">
-
-<div class="col-md-6 col-lg-4">
-<div class="card feature-card p-3">
-<h5>Advanced Query Optimization</h5>
-<p>Conversation-aware query rewriting, decomposition and multi-query generation improve retrieval recall.</p>
+<div class="row g-4 text-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card feature-card">
+            <h5>Advanced Query Optimization</h5>
+            <p>Conversation-aware query rewriting, decomposition and multi-query generation improve retrieval recall.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card feature-card">
+            <h5>Hybrid Memory System</h5>
+            <p>Combines conversation memory, entity memory, episodic memory, and vector memory for contextual awareness.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card feature-card">
+            <h5>Retrieval-Augmented Generation</h5>
+            <p>Integrates external medical knowledge with LLM reasoning to produce accurate responses.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card feature-card">
+            <h5>Cross-Encoder Re-Ranking</h5>
+            <p>Ensures the most relevant documents are prioritized before passing to the LLM.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card feature-card">
+            <h5>Long-Term Vector Memory</h5>
+            <p>Stores important interactions using semantic embeddings for persistent knowledge.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card feature-card">
+            <h5>Streaming LLM Responses</h5>
+            <p>Tokens stream in real-time for a responsive conversational interface.</p>
+        </div>
+    </div>
 </div>
-</div>
-
-<div class="col-md-6 col-lg-4">
-<div class="card feature-card p-3">
-<h5>Hybrid Memory System</h5>
-<p>Combines conversation memory, entity memory, episodic memory and vector memory.</p>
-</div>
-</div>
-
-<div class="col-md-6 col-lg-4">
-<div class="card feature-card p-3">
-<h5>Retrieval-Augmented Generation</h5>
-<p>Combines external medical knowledge with LLM reasoning.</p>
-</div>
-</div>
-
-<div class="col-md-6 col-lg-4">
-<div class="card feature-card p-3">
-<h5>Cross-Encoder Re-Ranking</h5>
-<p>Re-orders retrieved documents to ensure the most relevant context.</p>
-</div>
-</div>
-
-<div class="col-md-6 col-lg-4">
-<div class="card feature-card p-3">
-<h5>Long-Term Vector Memory</h5>
-<p>Important interactions are stored in semantic memory using vector embeddings.</p>
-</div>
-</div>
-
-<div class="col-md-6 col-lg-4">
-<div class="card feature-card p-3">
-<h5>Streaming LLM Responses</h5>
-<p>Tokens stream in real time for a responsive conversational interface.</p>
-</div>
-</div>
-
-</div>
-
-
 
 <!-- ARCHITECTURE -->
-
 <h2 class="section-title">🏗 System Architecture</h2>
-
 <div class="pipeline">
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png">
-<p>User Query</p>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"><p>User Query</p></div>
+    <div class="arrow">➜</div>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/906/906175.png"><p>Memory Context</p></div>
+    <div class="arrow">➜</div>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png"><p>Query Rewriting</p></div>
+    <div class="arrow">➜</div>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png"><p>Vector Retrieval</p></div>
+    <div class="arrow">➜</div>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png"><p>Filtering</p></div>
+    <div class="arrow">➜</div>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/4341/4341139.png"><p>Re-Ranking</p></div>
+    <div class="arrow">➜</div>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/2721/2721279.png"><p>Context Builder</p></div>
+    <div class="arrow">➜</div>
+    <div class="step"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"><p>LLM Generation</p></div>
+    <div class="arrow">➜</div>
+    <div class="step highlight"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712066.png"><p>Memory Update</p></div>
 </div>
-
-<div class="arrow">➜</div>
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/906/906175.png">
-<p>Memory Context</p>
-</div>
-
-<div class="arrow">➜</div>
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png">
-<p>Query Rewriting</p>
-</div>
-
-<div class="arrow">➜</div>
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png">
-<p>Vector Retrieval</p>
-</div>
-
-<div class="arrow">➜</div>
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png">
-<p>Filtering</p>
-</div>
-
-<div class="arrow">➜</div>
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/4341/4341139.png">
-<p>Re-Ranking</p>
-</div>
-
-<div class="arrow">➜</div>
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/2721/2721279.png">
-<p>Context Builder</p>
-</div>
-
-<div class="arrow">➜</div>
-
-<div class="step">
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
-<p>LLM Generation</p>
-</div>
-
-<div class="arrow">➜</div>
-
-<div class="step highlight">
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712066.png">
-<p>Memory Update</p>
-</div>
-
-</div>
-
-
 
 <!-- PROJECT STRUCTURE -->
-
 <h2 class="section-title">🧩 Project Structure</h2>
-
 <div class="codeblock">
-
 📁 src  
 ├── 📁 config  
 │   ├── 📄 config.py  
 │   └── 📄 API_config.py  
-
 ├── 📁 llm  
 │   └── 📄 llm_loader.py  
-
 ├── 📁 prompts  
 │   ├── 📄 prompt.py  
 │   └── 📄 fewshot_example.py  
-
 ├── 📁 query_rewriter  
 │   ├── 📄 conversation_aware_rewriter.py  
 │   ├── 📄 multi_query_gen_rewriter.py  
 │   ├── 📄 query_decomposer.py  
 │   └── 📄 rewrite_query_pipeline.py  
-
 ├── 📁 memory  
 │   ├── 📄 conversation_memory.py  
 │   ├── 📄 entity_memory.py  
@@ -387,129 +254,49 @@ View Source Code on GitHub
 │   ├── 📄 vector_memory.py  
 │   ├── 📄 memory_gate.py  
 │   └── 📄 memory_manager.py  
-
 ├── 📁 retriever  
 │   └── 📄 retriever.py  
-
 ├── 📁 reranker  
 │   └── 📄 reranker.py  
-
 └── 📁 rag  
     └── 📄 rag_chain.py  
-
 </div>
-
-.codeblock{
-background:#1e1e1e;
-color:#d4d4d4;
-padding:25px;
-border-radius:10px;
-font-family: Consolas, monospace;
-white-space: pre;
-}
-
 
 <!-- TECHNOLOGIES -->
-
 <h2 class="section-title">⚙️ Technologies</h2>
-
 <div class="row text-center g-4">
-
-<div class="col-6 col-md-2 tech-icon">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg">
-<p>Python</p>
+<div class="col-6 col-md-2 tech-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><p>Python</p></div>
+<div class="col-6 col-md-2 tech-icon"><img src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4"><p>LangChain</p></div>
+<div class="col-6 col-md-2 tech-icon"><img src="https://avatars.githubusercontent.com/u/54333248?s=200&v=4"><p>Pinecone</p></div>
+<div class="col-6 col-md-2 tech-icon"><img src="https://huggingface.co/front/assets/huggingface_logo.svg"><p>Transformers</p></div>
+<div class="col-6 col-md-2 tech-icon"><img src="https://groq.com/wp-content/uploads/2024/03/groq-logo.svg"><p>Groq</p></div>
+<div class="col-6 col-md-2 tech-icon"><img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png"><p>Vector Search</p></div>
 </div>
-
-<div class="col-6 col-md-2 tech-icon">
-<img src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4">
-<p>LangChain</p>
-</div>
-
-<div class="col-6 col-md-2 tech-icon">
-<img src="https://avatars.githubusercontent.com/u/54333248?s=200&v=4">
-<p>Pinecone</p>
-</div>
-
-<div class="col-6 col-md-2 tech-icon">
-<img src="https://huggingface.co/front/assets/huggingface_logo.svg">
-<p>Transformers</p>
-</div>
-
-<div class="col-6 col-md-2 tech-icon">
-<img src="https://groq.com/wp-content/uploads/2024/03/groq-logo.svg">
-<p>Groq</p>
-</div>
-
-<div class="col-6 col-md-2 tech-icon">
-<img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png">
-<p>Vector Search</p>
-</div>
-
-</div>
-
-
 
 <!-- WORKFLOW -->
-
 <h2 class="section-title">💡 System Workflow</h2>
-
-<div class="workflow-step"><b>1. User Query</b> — The user submits a medical question.</div>
-
-<div class="workflow-step"><b>2. Memory Context Builder</b> — Conversation history and entity memory provide context.</div>
-
-<div class="workflow-step"><b>3. Query Rewriting Pipeline</b> — The system generates multiple optimized search queries.</div>
-
-<div class="workflow-step"><b>4. Vector Retrieval</b> — The queries search the vector database containing medical knowledge.</div>
-
+<div class="workflow-step"><b>1. User Query</b> — User submits a medical question.</div>
+<div class="workflow-step"><b>2. Memory Context Builder</b> — Conversation and entity memory provide context.</div>
+<div class="workflow-step"><b>3. Query Rewriting Pipeline</b> — Optimized search queries are generated.</div>
+<div class="workflow-step"><b>4. Vector Retrieval</b> — Queries retrieve relevant medical documents from the vector DB.</div>
 <div class="workflow-step"><b>5. Similarity Filtering</b> — Irrelevant documents are removed.</div>
-
-<div class="workflow-step"><b>6. Cross-Encoder Re-Ranking</b> — Documents are ranked by semantic relevance.</div>
-
-<div class="workflow-step"><b>7. Context Construction</b> — Top documents are merged with memory context.</div>
-
-<div class="workflow-step"><b>8. LLM Generation</b> — The language model generates the final response.</div>
-
-<div class="workflow-step"><b>9. Memory Update</b> — Important interactions are stored in long-term memory.</div>
-
-
+<div class="workflow-step"><b>6. Cross-Encoder Re-Ranking</b> — Documents ranked by semantic relevance.</div>
+<div class="workflow-step"><b>7. Context Construction</b> — Top documents merged with memory context.</div>
+<div class="workflow-step"><b>8. LLM Generation</b> — Language model generates structured response.</div>
+<div class="workflow-step"><b>9. Memory Update</b> — Important interactions stored in long-term memory.</div>
 
 <!-- CTA -->
-
 <section class="cta">
-
 <h3>Explore the Full Project</h3>
-
-<p>View the full implementation, architecture and code on GitHub.</p>
-
-<a href="https://github.com/ThimiraDon/Memory-Aware-Medical-RAG-Assistant"
-class="btn btn-light btn-lg"
-target="_blank">
-Open GitHub Repository
-</a>
-
+<p>View the full implementation, architecture, and code on GitHub.</p>
+<a href="https://github.com/ThimiraDon/Memory-Aware-Medical-RAG-Assistant" class="btn btn-light btn-lg" target="_blank">Open GitHub Repository</a>
 </section>
 
-
-
-</div>
-
-
-
 <!-- FOOTER -->
-
 <div class="footer">
-
-<p>
-Developed by <strong>Thimira</strong><br>
-Exploring advanced RAG systems, hybrid memory architectures and
-AI-powered medical assistants.
-</p>
-
+<p>Developed by <strong>Thimira</strong><br>Exploring advanced RAG systems, hybrid memory architectures, and AI-powered medical assistants.</p>
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
