@@ -1,4 +1,4 @@
-# 🧠 Memory-Aware Medical RAG Assistant
+# Memory-Aware Medical RAG Assistant
 
 A context-aware medical AI assistant leveraging RAG, hybrid memory, and LLMs.
 
