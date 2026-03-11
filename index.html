@@ -58,6 +58,60 @@ pre{
     background:#f1f1f1;
     text-align:center;
 }
+.pipeline{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:20px;
+    overflow-x:auto;
+    padding:30px 10px;
+}
+
+.step{
+    min-width:130px;
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    transition:transform 0.3s;
+    animation:fadeInUp 0.8s ease forwards;
+}
+
+.step img{
+    width:40px;
+    margin-bottom:8px;
+}
+
+.step:hover{
+    transform:translateY(-6px);
+}
+
+.arrow{
+    font-size:28px;
+    color:#0d6efd;
+    animation:moveArrow 1.5s infinite alternate;
+}
+
+.highlight{
+    border:2px solid #0d6efd;
+}
+
+@keyframes fadeInUp{
+from{
+    opacity:0;
+    transform:translateY(20px);
+}
+to{
+    opacity:1;
+    transform:translateY(0);
+}
+}
+
+@keyframes moveArrow{
+from{transform:translateX(0);}
+to{transform:translateX(6px);}
+}
 
 </style>
 </head>
@@ -128,40 +182,86 @@ Real-time token streaming for responsive chat interfaces.</li>
 
 <section>
 
-<h2 class="section-title">🏗 System Architecture</h2>
+<h2 class="section-title text-center">🏗 System Architecture</h2>
 
-<pre>
-User Question
-      │
-      ▼
-Memory Context Builder
-      │
-      ▼
-Query Rewriting Pipeline
-      │
-      ▼
-Multi-Query Retrieval (Vector DB)
-      │
-      ▼
-Similarity Filtering
-      │
-      ▼
-Cross-Encoder Re-Ranking
-      │
-      ▼
-Context Construction
-      │
-      ▼
-LLM Response Generation
-      │
-      ▼
-Streaming Answer
-      │
-      ▼
-Memory Update
-</pre>
+<div class="container">
+
+<div class="pipeline">
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png">
+<p>User Question</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/906/906175.png">
+<p>Memory Context</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png">
+<p>Query Rewriting</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png">
+<p>Vector Retrieval</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png">
+<p>Filtering</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/4341/4341139.png">
+<p>Re-Ranking</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/2721/2721279.png">
+<p>Context Builder</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+<p>LLM Response</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step">
+<img src="https://cdn-icons-png.flaticon.com/512/545/545705.png">
+<p>Streaming Output</p>
+</div>
+
+<div class="arrow">➜</div>
+
+<div class="step highlight">
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712066.png">
+<p>Memory Update</p>
+</div>
+
+</div>
+
+</div>
 
 </section>
+     
 
 
 <!-- PROJECT STRUCTURE -->
