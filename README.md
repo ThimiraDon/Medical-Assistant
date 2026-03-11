@@ -1,5 +1,7 @@
 # 🧠 Memory-Aware Medical RAG Assistant
 
+A context-aware medical AI assistant leveraging RAG, hybrid memory, and LLMs.
+
 A **Retrieval-Augmented Generation (RAG) medical assistant** that combines advanced query rewriting, hybrid memory architecture, document re-ranking, and long-term semantic memory to deliver accurate and context-aware responses to medical questions.
 
 The system retrieves medical knowledge from a vector database, improves retrieval through multi-query optimization, re-ranks results using a cross-encoder model, and generates responses using a large language model.
